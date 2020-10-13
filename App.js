@@ -4,21 +4,14 @@ import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import { enableScreens } from "react-native-screens"; // Versões mais recentes do expo e do react native
 // import { useScreens } from 'react-native-screens';
-import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
 import MealsNavigator from "./navigation/MealsNavigator";
-import mealsReducer from "./store/reducers/meals";
+import store from "./store";
 
 import Colors from './constants/colors';
 
 enableScreens();
-
-const rootReducer = combineReducers({
-  meals: mealsReducer,
-});
-
-const store = createStore(rootReducer);
 
 const fetchFonts = () => {
   return Font.loadAsync({
