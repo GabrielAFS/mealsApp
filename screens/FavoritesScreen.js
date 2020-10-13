@@ -1,20 +1,41 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+
+import MealList from "../components/MealList";
+import DefaultText from "../components/DefaultText";
 
 const FavoritesScreen = (props) => {
+  const favMeals = useSelector(state => state.meals.favoriteMeals);
+
+  if (!favMeals || favMeals.length === 0) {
+    return (
+      <View style={styles.content}>
+        <DefaultText>
+          No favorite meals found. Starting adding some!
+        </DefaultText>
+      </View>
+    )
+  }
+
   return (
-    <View style={styles.screen}>
-      <Text>The Favorites Screen!</Text>
-    </View>
+    <MealList
+      listData={favMeals}
+      navigation={props.navigation}
+    />
   );
 };
 
+FavoritesScreen.navigationOptions = {
+  headerTitle: 'Your Favorites'
+}
+
 const styles = StyleSheet.create({
-  screen: {
+  content: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+})
 
 export default FavoritesScreen;

@@ -1,12 +1,55 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+
+import CategoryGridTitle from "../components/CategoryGridTitle";
+import HeaderButton from "../components/HeaderButton";
+
+import { CATEGORIES } from "../data/dummy-data";
 
 const CategoriesScreen = (props) => {
+  const renderGridItem = (itemData) => {
+    return (
+      <CategoryGridTitle
+        title={itemData.item.title}
+        color={itemData.item.color}
+        onSelect={() => {
+          props.navigation.navigate({
+            routeName: "CategoryMeals",
+            params: {
+              categoryId: itemData.item.id,
+            },
+          });
+        }}
+      />
+    );
+  };
+
   return (
-    <View style={styles.screen}>
-      <Text>The Categories Screen!</Text>
-    </View>
+    <FlatList
+      keyExtractor={(item, index) => item.id}
+      data={CATEGORIES}
+      numColumns={2}
+      renderItem={renderGridItem}
+    />
   );
+};
+
+CategoriesScreen.navigationOptions = (navData) => {
+  return {
+    headerTitle: "Meal Categories",
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Menu"
+          iconName="ios-menu"
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
+  };
 };
 
 const styles = StyleSheet.create({
