@@ -9,6 +9,8 @@ import {
   TouchableNativeFeedback,
 } from "react-native";
 
+import DefaultText from "./DefaultText";
+
 const MealItem = (props) => {
   return (
     <View style={styles.mealItem}>
@@ -33,9 +35,9 @@ const MealItem = (props) => {
             ...styles.mealDetails
           }}
           >
-            <Text>{props.duration}min</Text>
-            <Text>{props.complexity.toUpperCase()}</Text>
-            <Text>{props.affordability.toUpperCase()}</Text>
+            <DefaultText>{props.duration}min</DefaultText>
+            <DefaultText>{props.complexity.toUpperCase()}</DefaultText>
+            <DefaultText>{props.affordability.toUpperCase()}</DefaultText>
           </View>
         </View>
       </TouchableOpacity>
